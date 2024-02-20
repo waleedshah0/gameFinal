@@ -1,0 +1,31 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+public class TimerClock : MonoBehaviour
+{
+    public Text timerText;
+    private float elapsedTime = 0f;
+    private float updateInterval = 1f; // Update the timer every second
+
+    private void Start()
+    {
+        // InvokeRepeating calls the specified method (UpdateTimer) repeatedly with a specified interval
+        InvokeRepeating("UpdateTimer", 0f, updateInterval);
+    }
+
+    private void UpdateTimer()
+    {
+        elapsedTime += updateInterval;
+        UpdateTimerDisplay();
+    }
+
+    private void UpdateTimerDisplay()
+    {
+        // Convert elapsed time to minutes and seconds
+        int minutes = Mathf.FloorToInt(elapsedTime / 60f);
+        int seconds = Mathf.FloorToInt(elapsedTime % 60f);
+
+        // Update the timer text
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+}
